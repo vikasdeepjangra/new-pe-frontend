@@ -1,0 +1,50 @@
+#tabName{
+    width: fit-content;
+    margin-top: 8vh;
+    margin-bottom: 1vh;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    background-color: black;
+    color: white;
+    border-radius: 2rem;
+}
+
+#allBtns button{
+    width: 12vw;
+    height: 8vh;
+}
+
+#outputWindow{
+    border-radius: 0.5rem;
+    margin-top: 5vh;
+    margin-bottom: 10vh;
+    padding-left: 2vw; 
+    padding-top: 2vh;
+    height: 20vh; 
+    width: 100%;
+    border: 2px solid black;
+    background-color: black;
+    color: white;
+}
+
+#displayRunning{
+    display: flex;
+    align-items: center;
+}
+
+/* Loader Animation */
+
+.loader {
+    border: 5px solid #f3f3f3; /* Light grey */
+    border-top: 5px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    margin-right: 1vw;
+    animation: spin 2s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
