@@ -1,5 +1,19 @@
 <div id="container" style="max-width: 70vw;">
-    <p id="tabName">{{ uploadFileName }}</p>
+
+    <div class="mt-5 mb-3 dropdown show d-flex justify-content-between">
+        <div class="bg-dark text-light d-flex align-items-center rounded ps-2 pe-2">{{ uploadFileName }}</div>
+
+        <a class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {{SelectedLanguage}}
+        </a>
+      
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item">C</a>
+          <a class="dropdown-item">CPP</a>
+          <a class="dropdown-item">Java</a>
+        </div>
+    </div>
+
     <div id="monacoEditor-container" class="d-flex align-item-center justify-content-center">
         <ngx-monaco-editor 
             #editorM
@@ -13,15 +27,18 @@
     <div id="allBtns" class="d-flex justify-content-between mt-4">
         <button type="button" class="btn btn-primary" id="uploadInput" (click)="uploadFileUsingFileSystemAPI()">Upload File FS</button>
         <button type="button" class="btn btn-secondary" (click)="saveFileUsingFileSystemAPI()">Save File FS</button>
-        <button type="button" class="btn btn-success" id="compileRunCodeBtn" (click)="compileRunCode()">Compile & Run</button>
+        <button type="button" class="btn btn-success" id="compileRunCodeBtn" (click)="compileCode()">Compile</button>
+        <button type="button" class="btn btn-success" [disabled]="runDisabled" id="compileRunCodeBtn" (click)="runCode()">Run</button>
         <button type="button" class="btn btn-danger" (click)="resetEditor()">Reset</button>
     </div>
-    <!--  -->
 
-    <div *ngIf="showResultBox" id="outputWindow">
-        <div id="displayRunning" *ngIf="showRunning"> 
-            <div class="loader" style="display: inline-block;"></div> Running...
-        </div>
-        <p *ngIf="!showRunning" style="white-space: pre-line">{{ finalResult }}<p>
+    <div id="processingMsgContainer" *ngIf="showProcessingMsg" 
+        class="mt-2 p-3"
+        style="background-color: black; color: white;">
+        {{ processingMsg }}
     </div>
+
+    <div class="mt-5" style="background-color: black;" id="terminal">
+    </div>
+    
 </div>
