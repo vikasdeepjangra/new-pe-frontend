@@ -34,6 +34,12 @@ export class AppComponent implements OnInit, OnChanges{
 
 
   ngOnInit(){
+    try{
+      this.code = localStorage.getItem('code');
+    }
+    catch{
+      this.code = '//Type your code here.'; //Contains Code Inside the File.
+    }
     loader.config({
       paths: {
         vs: './',
@@ -47,6 +53,7 @@ export class AppComponent implements OnInit, OnChanges{
 
   ngOnChanges(){
     console.log(this.code)
+    localStorage.setItem('code', this.code);
   }
 
   editorOptions = {theme: 'vs-dark', 
@@ -69,6 +76,9 @@ export class AppComponent implements OnInit, OnChanges{
       this.showResultBox = false;
     }
     this.code = contents;
+    localStorage.clear();
+    localStorage.setItem('code', this.code);
+
   }
 
   async saveFileUsingFileSystemAPI(){
@@ -97,13 +107,13 @@ export class AppComponent implements OnInit, OnChanges{
   }
 
   runCode(){
-    this.term.reset();
+    this.term.reset()
     this.showProcessingMsg = false;
     this.processingMsg = "";
     
     this.socket.emit("run-code")
 
-    this.socket.on("code-output", async output => {
+    this.socket.on("code-output", output => {
       this.term.write(output);
     })
 
@@ -118,11 +128,19 @@ export class AppComponent implements OnInit, OnChanges{
 
   resetEditor(){
     this.fileHandle = null;
-    this.code = '//Type your code here.';
     this.finalResult = "";
     this.showResultBox = false;
     this.uploadFileName = "";
     this.fileExtension = "";
+    window.location.href = window.location.href;
+  }
+
+  debug(){
+    this.socket.emit('debug-code', this.code);
+    this.socket.on('gpt-response', output => {
+      console.log('debug',output);
+    })
+
   }
 
 }
